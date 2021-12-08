@@ -31,11 +31,11 @@ class GoveeDevice:
 		Usage - my_device.setPower(true)
 		"""
 		if status == True:
-			os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301010000000000000000000000000000000033".format(self.mac))
-			return True, status
+			output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301010000000000000000000000000000000033".format(self.mac))
+			return (output == "Characteristic value was written successfully"), status, output
 		if status == False:
-			os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301000000000000000000000000000000000032".format(self.mac))
-			return True, status
+			output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301000000000000000000000000000000000032".format(self.mac))
+			return (output == "Characteristic value was written successfully"), status, output
 		return False, status
 
 	def setColor(self, c: list):
@@ -60,8 +60,8 @@ class GoveeDevice:
 		cs_p = packet.replace("0x","")
 		cs_p = cs_p.replace(" ","") + hex(checksum).replace("0x","")
 		cs_p = cs_p.upper()
-		os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
-		return True, c
+		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
+		return (output == "Characteristic value was written successfully"), c, output
 
 	def setBrightness(self,level: int):
 		"""
@@ -81,16 +81,17 @@ class GoveeDevice:
 		cs_p = packet.replace("0x","")
 		cs_p = cs_p.replace(" ","") + level_xor_h.replace("0x","")
 		cs_p = cs_p.upper()
-		os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
-	def setScene(self,setting):
+		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
+        return (output == "Characteristic value was written successfully"), level, output
+    def setScene(self,setting):
 		"""
 		Sets the different scenes for the lights
 		The looks of them can be found in the Govee app
 		setting - Takes a string, type which mode you want (can be found in app or inside the 'scenes' list at the top of the code
 		Usage - my_device.setScene("setting")
 		"""
-		os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,scenes[setting.lower()]))
-
+		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,scenes[setting.lower()]))
+        return (output == "Characteristic value was written successfully"), setting, output
 	def setColorMusic(self,setting,c=[255,0,0]):
 		"""
 		Sets the music mode for the lights
@@ -113,5 +114,5 @@ class GoveeDevice:
 		rgb_c = ''.join(hex_x)
 		pre_setting = music[setting.lower()]
 		cur_setting = (pre_setting[:10] + rgb_c + pre_setting[16:]) if("RR" in pre_setting) else pre_setting
-		os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cur_setting))
-
+		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cur_setting))
+        return (output == "Characteristic value was written successfully"), setting, c, output
