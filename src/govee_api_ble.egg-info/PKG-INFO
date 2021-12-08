@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: govee-api-ble
-Version: 0.0.7
+Version: 0.0.8
 Summary: Python API for Govee H6127 RGB lighting strips 
 Home-page: https://github.com/softgrass/govee-api-ble
 Author: Leah Snodgrass
@@ -17,6 +17,8 @@ License-File: LICENSE
 
 # govee-api-ble
 *A Python API for Govee H6127 RGB lighting strips*
+
+[Python PIP Package Site!](https://pypi.org/project/govee-api-ble/)
 
 **This project is still in progress! If you have any issue, post an issue. If you have a fix, make a pull request**
 
