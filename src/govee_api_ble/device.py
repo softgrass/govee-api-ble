@@ -1,4 +1,4 @@
-import os
+import subprocess
 
 scenes = {
 	'sunrise': '3305040000000000000000000000000000000032',
@@ -31,10 +31,10 @@ class GoveeDevice:
 		Usage - my_device.setPower(true)
 		"""
 		if status == True:
-			output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301010000000000000000000000000000000033".format(self.mac))
+			output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301010000000000000000000000000000000033".format(self.mac), shell=True)
 			return (output == "Characteristic value was written successfully"), status, output
 		if status == False:
-			output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301000000000000000000000000000000000032".format(self.mac))
+			output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301000000000000000000000000000000000032".format(self.mac), shell=True)
 			return (output == "Characteristic value was written successfully"), status, output
 		return False, status
 
@@ -60,7 +60,7 @@ class GoveeDevice:
 		cs_p = packet.replace("0x","")
 		cs_p = cs_p.replace(" ","") + hex(checksum).replace("0x","")
 		cs_p = cs_p.upper()
-		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
+		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
 		return (output == "Characteristic value was written successfully"), c, output
 
 	def setBrightness(self,level: int):
@@ -81,7 +81,7 @@ class GoveeDevice:
 		cs_p = packet.replace("0x","")
 		cs_p = cs_p.replace(" ","") + level_xor_h.replace("0x","")
 		cs_p = cs_p.upper()
-		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
+		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p), shell=True)
         return (output == "Characteristic value was written successfully"), level, output
     def setScene(self,setting):
 		"""
@@ -90,7 +90,7 @@ class GoveeDevice:
 		setting - Takes a string, type which mode you want (can be found in app or inside the 'scenes' list at the top of the code
 		Usage - my_device.setScene("setting")
 		"""
-		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,scenes[setting.lower()]))
+		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,scenes[setting.lower()]), shell=True)
         return (output == "Characteristic value was written successfully"), setting, output
 	def setColorMusic(self,setting,c=[255,0,0]):
 		"""
@@ -114,5 +114,5 @@ class GoveeDevice:
 		rgb_c = ''.join(hex_x)
 		pre_setting = music[setting.lower()]
 		cur_setting = (pre_setting[:10] + rgb_c + pre_setting[16:]) if("RR" in pre_setting) else pre_setting
-		output = os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cur_setting))
+		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cur_setting), shell=True)
         return (output == "Characteristic value was written successfully"), setting, c, output
