@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="govee-api-ble",
-    version="0.0.6",
+    version="0.0.7",
     author="Leah Snodgrass",
     author_email="soft@null.net",
     description="Python API for Govee H6127 RGB lighting strips ",
