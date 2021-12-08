@@ -66,6 +66,33 @@ my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
 
 my_device.setBrightness(50) # Sets brightness to 50%
 ```
+### Set Device Scene Example
+my_device.setScene(setting)
+
+Accepts string, uses name of any scene setting that can be found in the Govee app
+```python
+from govee_api_ble import GoveeDevice
+# Initalize the device
+my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+
+my_device.setScene("blinking") # Sets scene to blinking mode
+```
+### Set Music Mode Example
+my_device.setColorMusic(setting,\[r,g,b])
+
+Accepts string using name of the music mode, which can be found in the Govee app
+
+Also accepts three RGB values as a list for the spectrum mode
+
+At the moment, rolling mode does not work
+```python
+from govee_api_ble import GoveeDevice
+# Initalize the device
+my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+
+my_device.setColorMusic("rhythm") # Sets music mode to rhythm
+my_device.setColorMusic("spectrum",[0,0,255]) # Sets music mode to spectrum with the color blue
+```
 
 ## Help with Development!
 * Run `pip install setuptools wheel`
