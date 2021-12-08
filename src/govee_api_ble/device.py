@@ -60,7 +60,7 @@ class GoveeDevice:
 		cs_p = packet.replace("0x","")
 		cs_p = cs_p.replace(" ","") + hex(checksum).replace("0x","")
 		cs_p = cs_p.upper()
-		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p))
+		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p), shell=True)
 		return (output == b'Characteristic value was written successfully\n'), c, output
 
 	def setBrightness(self,level: int):
