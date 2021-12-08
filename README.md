@@ -1,5 +1,6 @@
 # govee-api-ble
 *A Python API for Govee H6127 RGB lighting strips*
+[Python PIP Package Site!](https://pypi.org/project/govee-api-ble/)
 
 **This project is still in progress! If you have any issue, post an issue. If you have a fix, make a pull request**
 
