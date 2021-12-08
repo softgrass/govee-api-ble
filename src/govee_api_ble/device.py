@@ -113,6 +113,5 @@ class GoveeDevice:
 		rgb_c = ''.join(hex_x)
 		pre_setting = music[setting.lower()]
 		cur_setting = (pre_setting[:10] + rgb_c + pre_setting[16:]) if("RR" in pre_setting) else pre_setting
-		print(cur_setting)
 		os.system("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cur_setting))
 

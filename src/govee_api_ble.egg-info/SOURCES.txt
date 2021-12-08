@@ -1,0 +1,10 @@
+LICENSE
+README.md
+pyproject.toml
+setup.py
+src/govee_api_ble/__init__.py
+src/govee_api_ble/device.py
+src/govee_api_ble.egg-info/PKG-INFO
+src/govee_api_ble.egg-info/SOURCES.txt
+src/govee_api_ble.egg-info/dependency_links.txt
+src/govee_api_ble.egg-info/top_level.txt
