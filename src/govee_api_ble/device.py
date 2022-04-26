@@ -1,4 +1,5 @@
 import subprocess
+import typing
 
 scenes = {
 	'sunrise': '3305040000000000000000000000000000000032',
@@ -12,7 +13,8 @@ scenes = {
 }
 music = {
 	'energic': '3305010000000000000000000000000000000037',
-	'spectrum': '3305010100RRBBGG0000000000000000000000c9',
+	'spectrum': '3305010100RRGGBB0000000000000000000000c9',
+	'rolling': '3305010200RRGGBB0000000000000000000000ca',
 	'rhythm': '3305010300000000000000000000000000000034',
 }
 
@@ -23,7 +25,7 @@ class GoveeDevice:
 		mac - the bluetooth MAC address for your light strip
 		"""
 		self.mac = mac
-
+	
 	def setPower(self, status):
 		"""
 		Turn lights on or off
@@ -37,22 +39,41 @@ class GoveeDevice:
 			output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n 3301000000000000000000000000000000000032".format(self.mac), shell=True)
 			return (output == b'Characteristic value was written successfully\n'), status, output
 		return False, status
-
-	def setColor(self, c: list):
+	
+	def setColor(self, c: typing.List[int], segment: typing.List[int] = None):
 		"""
 		Sets the color of the entire light strip
 		c - List of three integers representing RGB values
+		segment - optional - List of the segments that should be changed [0-14] (15 segments)
 		Usage - my_device.setColor([255,0,0])
 		"""
-		if not isinstance(c, list) or len(c) is not 3:
-			raise TypeError
+		if segment is None:
+			mode = "0x02"
+			l, r = 0x00, 0xFF
+		else:
+			mode = "0x0b"
+			l, r = 0, 0
+			for i in segment:
+				if not isinstance(i, int):
+					raise TypeError
+				elif i >= 15:
+					raise ValueError # there are only 15 Segments (0-14)
+				elif i >= 8:
+					r ^= 2**(i-8)
+				else:
+					l ^= 2**i
+		if len(c) is not 3:
+			raise IndexError
 		for v in c:
-			if not isinstance(v,int):
+			if not isinstance(v, int):
 				raise TypeError
 			if not (v >= 0 and v <= 255):
 				raise ValueError
 		hex_c = [hex(v) if len(hex(v)) is 4 else hex(v)[0:2]+"0"+hex(v)[2:] for v in c]
-		packet = '0x33 0x05 0x02 {0} {1} {2} 0x00 0xFF 0xAE 0x54 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00'.format(*hex_c)
+		l = hex(l) if len(hex(l)) is 4 else hex(l)[0:2]+"0"+hex(l)[2:]
+		r = hex(r) if len(hex(r)) is 4 else hex(r)[0:2]+"0"+hex(r)[2:]
+		#packet = '0x33 0x05 0x02 {0} {1} {2} 0x00 0xFF 0xAE 0x54 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00'.format(*hex_c)
+		packet = f"0x33 0x05 {mode} {hex_c[0]} {hex_c[1]} {hex_c[2]} {l} {r} 0xAE 0x54 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00"
 		packet_l = [chr(int(x, 16)) for x in packet.split(' ')]
 		checksum = 0
 		for el in packet_l:
@@ -62,7 +83,7 @@ class GoveeDevice:
 		cs_p = cs_p.upper()
 		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p), shell=True)
 		return (output == b'Characteristic value was written successfully\n'), c, output
-
+	
 	def setBrightness(self,level: int):
 		"""
 		Sets the brightness of the light strip
@@ -83,6 +104,7 @@ class GoveeDevice:
 		cs_p = cs_p.upper()
 		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,cs_p), shell=True)
 		return (output == b'Characteristic value was written successfully\n'), level, output
+	
 	def setScene(self,setting):
 		"""
 		Sets the different scenes for the lights
@@ -92,13 +114,14 @@ class GoveeDevice:
 		"""
 		output = subprocess.check_output("gatttool -i hci0 -b {} --char-write-req -a 0x0015 -n {}".format(self.mac,scenes[setting.lower()]), shell=True)
 		return (output == b'Characteristic value was written successfully\n'), setting, output
+	
 	def setColorMusic(self,setting,c=[255,0,0]):
 		"""
 		Sets the music mode for the lights
 		The settings for this can be found in the Govee app or in the 'music' list at the top of the code
 		Spectrum mode accepts a list of RGB values after the setting
 		setting - Takes a string, type which mode you want
-		c - Only used for Spectrum setting, accepts 3 int values as RGB values
+		c - Only used for Spectrum or Rolling setting, accepts 3 int values as RGB values
 		Usage - my_device.setColorMusic("setting")
 				my_device.setColorMusic("spectrum",[R,G,B])
 		"""
