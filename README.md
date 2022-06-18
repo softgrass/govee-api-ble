@@ -5,7 +5,7 @@
 
 **This project is still in progress! If you have any issue, post an issue. If you have a fix, make a pull request**
 
-**This project currently uses os.system and will only work on UNIX systems! I'm working on a fix for this, but in the meantime, this is what """works"""!**
+**This project currently uses terminal commands and will only work on UNIX systems! I'm working on a fix for this, but in the meantime, this is what """works"""!**
 
 *Huge thanks to [BeauJBurroughs](https://github.com/BeauJBurroughs/Govee-H6127-Reverse-Engineering) for their amazing research! Without them this would not be possible :-)*
 
