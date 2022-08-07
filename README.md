@@ -30,7 +30,7 @@ To initialize an object, add to your code:
 ```python
 from govee_api_ble import GoveeDevice
 
-my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+my_device = GoveeDevice('FA:KE:MA:CH:ER:E0')
 ```
 Replacing the argument with your device's MAC address
 ## Usage
@@ -41,7 +41,7 @@ Accepts boolean value to turn device on/off
 ```python
 from govee_api_ble import GoveeDevice
 # Initialize the device
-my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+my_device = GoveeDevice('FA:KE:MA:CH:ER:E0')
 
 my_device.setPower(True) # Turns device on
 my_device.setPower(False) # Turns device off
@@ -53,7 +53,7 @@ Accepts three RGB values as a list
 ```python
 from govee_api_ble import GoveeDevice
 # Initialize the device
-my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+my_device = GoveeDevice('FA:KE:MA:CH:ER:E0')
 
 my_device.setColor([0,0,255]) # Sets entire light strip to blue
 ```
@@ -64,7 +64,7 @@ Accepts int between 0-100 and sets device brightness to number
 ```python
 from govee_api_ble import GoveeDevice
 # Initialize the device
-my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+my_device = GoveeDevice('FA:KE:MA:CH:ER:E0')
 
 my_device.setBrightness(50) # Sets brightness to 50%
 ```
@@ -75,7 +75,7 @@ Accepts string, uses name of any scene setting that can be found in the Govee ap
 ```python
 from govee_api_ble import GoveeDevice
 # Initalize the device
-my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+my_device = GoveeDevice('FA:KE:MA:CH:ER:E0')
 
 my_device.setScene("blinking") # Sets scene to blinking mode
 ```
@@ -90,7 +90,7 @@ At the moment, rolling mode does not work
 ```python
 from govee_api_ble import GoveeDevice
 # Initalize the device
-my_device = GoveeDevice(FA:KE:MA:CH:ER:E0)
+my_device = GoveeDevice('FA:KE:MA:CH:ER:E0')
 
 my_device.setColorMusic("rhythm") # Sets music mode to rhythm
 my_device.setColorMusic("spectrum",[0,0,255]) # Sets music mode to spectrum with the color blue
