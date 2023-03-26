@@ -3,6 +3,7 @@
 #### This API is confirmed to work with the following Govee Models:
 - H6139
 - H6127
+
 *The model number can typically be located in the app or by looking at the device's default Bluetooth name*
 [Python PIP Package Site!](https://pypi.org/project/govee-api-ble/)
 
