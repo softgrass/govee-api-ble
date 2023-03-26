@@ -6,6 +6,8 @@
 
 *The model number can typically be located in the app or by looking at the device's default Bluetooth name*
 
+*If you have tested any Govee models not listed on here, please make an issue and I will add it in!*
+
 [Python PIP Package Site!](https://pypi.org/project/govee-api-ble/)
 
 **This project is still in progress! If you have any issue, post an issue. If you have a fix, make a pull request**
