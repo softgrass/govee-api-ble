@@ -1,6 +1,9 @@
 # govee-api-ble
-*A Python API for Govee H6127 RGB lighting strips*
-
+*A Python API for Govee RGB lighting strips*
+#### This API is confirmed to work with the following Govee Models:
+- H6139
+- H6127
+*The model number can typically be located in the app or by looking at the device's default Bluetooth name*
 [Python PIP Package Site!](https://pypi.org/project/govee-api-ble/)
 
 **This project is still in progress! If you have any issue, post an issue. If you have a fix, make a pull request**
@@ -24,7 +27,7 @@ You will first need the MAC address for your light strip
 
 This can easily be found by doing `hcitool scan` on a Raspberry Pi or by looking in your settings on the Govee app
 
-To other devices, the strip will most likely be named ihoment-h6127 since that is the manufacturer's old name.
+To other devices, the strip will most likely be named ihoment-hXXXX (with XXXX being the model number) since that is the manufacturer's old name.
 
 To initialize an object, add to your code:
 ```python
