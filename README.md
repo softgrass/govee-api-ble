@@ -21,11 +21,19 @@ For this package you will need
 - A UNIX Device (Preferably a Raspberry Pi)
 - Python 3.6<=
 - Bleak (install via [PIP](https://pypi.org/project/bleak/))
-Once setup, install this package by typing:
+
+~~Once setup, install this package by typing:~~
 
 ```
 pip install govee-api-ble
 ```
+
+__**I currently have no access to my PyPi account, so you will have to install this update from the source before the PIP repo is updated.**__
+Download the repo or clone is using `git clone https://github.com/softgrass/govee-api-ble` and then run:
+```
+pip install govee-api-ble/
+```
+
 ## Initialization
 You will first need the MAC address for your light strip
 
