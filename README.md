@@ -29,7 +29,7 @@ pip install govee-api-ble
 ```
 
 __**I currently have no access to my PyPi account, so you will have to install this update from the source before the PIP repo is updated.**__
-Download the repo or clone is using `git clone https://github.com/softgrass/govee-api-ble` and then run:
+Download the repo above or clone it using `git clone https://github.com/softgrass/govee-api-ble` and then run:
 ```
 pip install govee-api-ble/
 ```
