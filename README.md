@@ -12,8 +12,6 @@
 
 **This project is still in progress! If you have any issue, post an issue. If you have a fix, make a pull request**
 
-**This project currently uses terminal commands and will only work on UNIX systems! I'm working on a fix for this, but in the meantime, this is what """works"""!**
-
 *Huge thanks to [BeauJBurroughs](https://github.com/BeauJBurroughs/Govee-H6127-Reverse-Engineering) for their amazing research! Without them this would not be possible :-)*
 
 
@@ -21,8 +19,9 @@
 For this package you will need
 - A UNIX Device (Preferably a Raspberry Pi)
 - Python 3.6<=
-- BlueZ with gattool
-To install, simply type
+- Bleak (install via [PIP](https://pypi.org/project/bleak/))
+Once setup, install this package by typing:
+
 ```
 pip install govee-api-ble
 ```
