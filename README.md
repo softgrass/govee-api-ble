@@ -18,8 +18,7 @@
 
 ## Requirements and Setup
 For this package you will need
-- A UNIX Device (Preferably a Raspberry Pi)
-- Python 3.6<=
+- Python >=3.8
 - Bleak (install via [PIP](https://pypi.org/project/bleak/))
 
 ~~Once setup, install this package by typing:~~
